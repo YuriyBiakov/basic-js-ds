@@ -1,6 +1,6 @@
 const { NotImplementedError } = require('../extensions/index.js');
 
-// const { Node } = require('../extensions/list-tree.js');
+const { Node } = require('../extensions/list-tree.js');
 
 /**
 * Implement simple binary search tree according to task description
@@ -8,19 +8,49 @@ const { NotImplementedError } = require('../extensions/index.js');
 */
 class BinarySearchTree {
 
+  constructor() {
+    this.rootNode = null;
+    this.lastCheckedNode = null;
+  }
+
   root() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    return this.rootNode;
   }
 
-  add(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
+  add(data) {
+    const additionNode = new Node(data);
+    
+    function recursiveAdder(targetNode, additionNode) {
+      if (additionNode.data > targetNode.data) {
+        if (targetNode.right) {
+          recursiveAdder(targetNode.right, additionNode);
+        } else targetNode.right = additionNode;
+      } else {
+        if (targetNode.left) recursiveAdder(targetNode.left, additionNode);
+        else targetNode.left = additionNode;
+      } 
+    }
 
-  has(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    //if root not exist
+    if (!this.root()) {
+      this.rootNode = additionNode;
+    } else recursiveAdder(this.rootNode, additionNode);
+   }
+
+  has(data) {
+    function recursiveHasChecker(checkedNode, data) {
+      if (checkedNode) {
+        if (checkedNode.data === data) {
+          //lastCheckedNode = checkedNode;
+          return true;
+        } else if (data > checkedNode.data) {
+          return recursiveHasChecker (checkedNode.right, data);
+        } else if (data < checkedNode.data) {
+          return recursiveHasChecker (checkedNode.left, data); 
+        } 
+      } else return false;
+    }
+    return recursiveHasChecker(this.rootNode, data);
   }
 
   find(/* data */) {

@@ -23,7 +23,6 @@ const { NotImplementedError, ListNode } = require('../extensions/index.js');
  * }
  */
 function removeKFromList(list, number) {
-  console.log('list is ', list, 'number is ', number);
   let cleanResults = [];
   let listNode = list;
   let result = null;
@@ -35,7 +34,6 @@ function removeKFromList(list, number) {
     }
     listNode = listNode.next;
   }
-  console.log('CLEAN RES-S is ', cleanResults)
   let currentNode = result;
 
   for (let i = 0; i < cleanResults.length; i++) {
@@ -49,8 +47,6 @@ function removeKFromList(list, number) {
     }
       currentNode = additionalNode;
   }
-  console.log('RESULT is ', result)
-  console.log('******************-------------****************')
   return result;
 }   
    
