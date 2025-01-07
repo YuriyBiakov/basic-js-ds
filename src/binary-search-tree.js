@@ -38,24 +38,24 @@ class BinarySearchTree {
    }
 
   has(data) {
-    function recursiveHasChecker(checkedNode, data) {
+    function recursiveHasChecker(checkedNode, data, queue) {
       if (checkedNode) {
         if (checkedNode.data === data) {
-          //lastCheckedNode = checkedNode;
+          queue.lastCheckedNode = checkedNode;
           return true;
         } else if (data > checkedNode.data) {
-          return recursiveHasChecker (checkedNode.right, data);
+          return recursiveHasChecker (checkedNode.right, data, queue);
         } else if (data < checkedNode.data) {
-          return recursiveHasChecker (checkedNode.left, data); 
+          return recursiveHasChecker (checkedNode.left, data, queue); 
         } 
       } else return false;
     }
-    return recursiveHasChecker(this.rootNode, data);
+    return recursiveHasChecker(this.rootNode, data, this);
   }
 
-  find(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  find(data) {
+    if (this.has(data)) return this.lastCheckedNode;
+    else return null;
   }
 
   remove(/* data */) {
